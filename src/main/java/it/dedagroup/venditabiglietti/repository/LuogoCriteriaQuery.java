@@ -29,6 +29,7 @@ public class LuogoCriteriaQuery {
         List<Predicate> predicate=new ArrayList<>();
         if(request.getProvincia() != null) predicate.add(builder.like(builder.lower(root.get("provincia")), "%"+ request.getProvincia().toLowerCase()+"%"));
         if(request.getComune() != null) predicate.add(builder.like(builder.lower(root.get("comune")), "%"+ request.getComune().toLowerCase()+"%"));
+        predicate.add(builder.equal(root.get("isCancellato"), false));
         Predicate[] predicateArray=predicate.toArray(new Predicate[predicate.size()]);
         query.where(predicateArray);
         List<Tuple> list = manager.createQuery(query).getResultList();
